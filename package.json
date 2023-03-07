@@ -1,0 +1,31 @@
+{
+  "name": "rn-toaster-stack",
+  "version": "1.0.0",
+  "description": "Toaster provider and tools for react native app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Basouli/rn-toaster-stack.git"
+  },
+  "author": "basil.collette",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Basouli/rn-toaster-stack/issues"
+  },
+  "homepage": "https://github.com/Basouli/rn-toaster-stack#readme",
+  "keywords": [
+    "react-native",
+    "toaster",
+    "stack",
+    "context"
+  ],
+  "dependencies": {
+    "react": "18.1.0",
+    "react-native": "0.70.5",
+    "react-native-restart": "^0.0.27",
+    "react-native-svg": "^13.4.0"
+  }
+}

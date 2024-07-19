@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StatusBar, StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   toastcontainer: {
@@ -9,8 +9,8 @@ export default StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    zIndex: 999,
-    paddingTop: 20,
+    zIndex: 100,
+    paddingTop: StatusBar.currentHeight + 10,
     paddingHorizontal: 20
   },
   toast: {

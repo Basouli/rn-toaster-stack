@@ -2,7 +2,7 @@
 Toaster provider and tools for react native app
 
 Git: https://github.com/Basouli/react-native-toaster
-My Portoflio: [www.basilcollette.fr](https://www.basilcollette.fr)
+My Portoflio: [www.basilcollette.com](https://www.basilcollette.com)
 
 # Installation
 npm install --save rn-toaster-skack
@@ -11,13 +11,21 @@ npm install --save rn-toaster-skack
 Here the list of the modules that could be imported on your react components:
 
 ToastProvider: Provider that handle a toast stack, showing them on screen.
+
 ToastContext: Context that return a function sending a Toast.
+
 ChappyToast: The Toast Class, composing of a type and a message.
+
 ToastTypeEnum: Object containing enum of toast types.
+
 setAnimationDuration: function to set the duration of the toast animation, sliding from the top of the screen.
+
 setDurationToast: function to set the duration of the toast's visibility on screen.
+
 setMaxToastCount: function to set the size of the toast stack.
+
 setToastTemplate: function to set the template of the toast.
+
 setFallback: function to set the function called when max Toast count is reached.
 
 # Usage
@@ -160,3 +168,6 @@ setFallback:
  */
 setFallback(fallBack) {...}
 ```
+
+svg
+

@@ -1,6 +1,6 @@
 {
   "name": "rn-toaster-stack",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "Toaster provider and tools for react native app",
   "main": "index.js",
   "scripts": {
@@ -23,9 +23,9 @@
     "context"
   ],
   "dependencies": {
-    "react": "18.1.0",
-    "react-native": "0.70.5",
+    "react": "18.2.0",
+    "react-native": "^0.74.3",
     "react-native-restart": "^0.0.27",
-    "react-native-svg": "^13.4.0"
+    "react-native-svg": "^15.2.0"
   }
 }

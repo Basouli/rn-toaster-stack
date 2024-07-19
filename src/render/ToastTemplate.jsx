@@ -11,6 +11,7 @@ const getStyle = (type) => {
 }
 
 const ToastTemplateSvg = (props) => {
+  
   const ToastSvg = require('./ToastSvg');
 
   const getSVG = (type) => {

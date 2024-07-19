@@ -1,6 +1,6 @@
 import React, { useState, createContext, useEffect, useRef } from 'react';
 import { /*Alert,*/ Animated } from "react-native";
-//import RNRestart from 'react-native-restart';
+import RNRestart from 'react-native-restart';
 import { easeOutAnimation } from './render/ToastAnimation';
 import ToastTemplate from './render/ToastTemplate';
 
@@ -57,23 +57,15 @@ const setToastTemplate = (template) => {
 }
 
 let fallback = () => {
-    /*
-    Alert.alert(
-        'Unexpected error occurred',
-        `Max toaster count : ${toastStack.length}`,
-        [{
-            text: 'Restart',
-            onPress: () => {
-                RNRestart.Restart();
-            }
-        }]
-    );
-    */
+    //
 };
 
 const ToastProvider = ({ children }) => {
 
-    const translateValue = useRef(new Animated.Value(-100)).current;
+    const VERTICAL_VISIBLE_POS = 60; //TODO: 0 when premium
+    const VERTICAL_HIDDEN_POS = -100;
+
+    const translateValue = useRef(new Animated.Value(-300)).current;
 
     const [maxToastReached, setMaxToastReached] = useState(false);
     const [toastStack, setToastStack] = useState([]);
@@ -88,14 +80,14 @@ const ToastProvider = ({ children }) => {
 
             if (toastStack.length > TOAST_ENUMS.MAX_TOAST_COUNT) {
                 setMaxToastReached((current) => {
-                    return(true);
+                    return (true);
                 });
 
                 fallback();
             }
 
             setState((currentState) => {
-                return({
+                return ({
                     ...currentState,
                     available: false,
                 });
@@ -107,11 +99,9 @@ const ToastProvider = ({ children }) => {
     }, [toastStack, state.available]);
 
     const addToast = (toast) => {
-        
-        console.log(toast);
         setToastStack((currentToastStack) => {
             if (!maxToastReached) {
-                return(
+                return (
                     [...currentToastStack, toast]
                 );
             }
@@ -135,7 +125,7 @@ const ToastProvider = ({ children }) => {
                     shiftToastStack();
 
                     setState((currentState) => {
-                        return({
+                        return ({
                             ...currentState,
                             available: true,
                             count: TOAST_ENUMS.TOAST_DURATION
@@ -145,7 +135,7 @@ const ToastProvider = ({ children }) => {
 
             } else {
                 setState((currentState) => {
-                    return({
+                    return ({
                         ...currentState,
                         available: false,
                         count: state.count--
@@ -160,18 +150,18 @@ const ToastProvider = ({ children }) => {
             let newToastStack = [...currentToastStack];
             newToastStack.shift();
 
-            return(
+            return (
                 [...newToastStack]
             );
         });
     }
 
     const showToast = () => {
-        easeOutAnimation(translateValue, TOAST_ENUMS.ANIMATION_DURATION, 0, 0);
+        easeOutAnimation(translateValue, TOAST_ENUMS.ANIMATION_DURATION, 0, VERTICAL_VISIBLE_POS);
     }
 
     const hideToast = () => {
-        easeOutAnimation(translateValue, TOAST_ENUMS.ANIMATION_DURATION, 0, -100);
+        easeOutAnimation(translateValue, TOAST_ENUMS.ANIMATION_DURATION, 0, VERTICAL_HIDDEN_POS);
     }
 
     // TEMPLATE RETURN _____________________________________________________________________________________ TEMPLATE RETURN

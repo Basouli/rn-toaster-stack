@@ -1,6 +1,6 @@
 {
   "name": "rn-toaster-stack",
-  "version": "1.0.5",
+  "version": "1.0.8",
   "description": "Toaster provider and tools for react native app",
   "main": "index.js",
   "scripts": {

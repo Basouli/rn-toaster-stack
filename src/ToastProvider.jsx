@@ -1,4 +1,4 @@
-import React, { useState, createContext, useEffect, useRef } from 'react';
+import React, { useState, createContext, useEffect, useRef, useCallback } from 'react';
 import { /*Alert,*/ Animated } from "react-native";
 import RNRestart from 'react-native-restart';
 import { easeOutAnimation } from './render/ToastAnimation';
@@ -13,6 +13,15 @@ let TOAST_ENUMS = {
     ONE_SECONDS: 1000, //units in milliseconds
     TOAST_DURATION: 3,
     MAX_TOAST_COUNT: 10
+}
+
+let zIndex = 100;
+
+const setZIndex = (value) => {
+    if (isNaN(zIndex)) {
+        throw new Error("setAnimationDuration: value must be a number");
+    }
+    zIndex = value;
 }
 
 const setAnimationDuration = (milliseconds) => {
@@ -50,7 +59,7 @@ const setMaxToastCount = (toastAmount) => {
 }
 
 const setToastTemplate = (template) => {
-    if (!React.isValidElement(template)) {
+    if (!React.isValidElement(template())) {
         throw new Error("setToastTemplate: value must be functionnal react component");
     }
     Template = template;
@@ -98,16 +107,11 @@ const ToastProvider = ({ children }) => {
 
     }, [toastStack, state.available]);
 
-    const addToast = (toast) => {
-        setToastStack((currentToastStack) => {
-            if (!maxToastReached) {
-                return (
-                    [...currentToastStack, toast]
-                );
-            }
-            return currentToastStack;
-        });
-    }
+    const addToast = useCallback((toast) => {
+        if (!maxToastReached) {
+            setToastStack((prev) => [...prev, toast]);
+        }
+    }, [maxToastReached]);
 
     // TOAST CYCLE _______________________________________________________________________________________ TOAST CYCLE
 
@@ -172,7 +176,7 @@ const ToastProvider = ({ children }) => {
             {children}
 
             {(toastStack && toastStack.length > 0) &&
-                <Template type={toastStack[0].type} message={toastStack[0].message} translateValue={translateValue} />
+                <Template zIndex={zIndex} type={toastStack[0].type} message={toastStack[0].message} translateValue={translateValue} />
             }
             
         </ToastContext.Provider>
@@ -182,5 +186,5 @@ const ToastProvider = ({ children }) => {
 export {
     ToastContext,
     ToastProvider,
-    setAnimationDuration, setDurationToast, setMaxToastCount, setToastTemplate, setFallback
+    setAnimationDuration, setDurationToast, setMaxToastCount, setToastTemplate, setFallback, setZIndex
 };

@@ -14,7 +14,7 @@ ToastProvider: Provider that handle a toast stack, showing them on screen.
 
 ToastContext: Context that return a function sending a Toast.
 
-ChappyToast: The Toast Class, composing of a type and a message.
+Toast: The Toast Class, composing of a type and a message.
 
 ToastTypeEnum: Object containing enum of toast types.
 
@@ -46,7 +46,7 @@ return (
 
 Minimal module imports needed on a react component:
 ```js
-import { ChappyToast, ToastContext } from 'rn-toaster-skack';
+import { Toast, ToastContext } from 'rn-toaster-skack';
 ```
 
 Initialise the context function (Need useContext that could be imported with 'react'):
@@ -55,11 +55,11 @@ const addToast = useContext(ToastContext);
 ```
 In this exemple, the const is named "addToast" because the only value given by the provider is a function, that give the toast to the provider.
 
-Use addToast function whenever inside your component with a parameter ChappyToast object that need a toast type and a message:
+Use addToast function whenever inside your component with a parameter Toast object that need a toast type and a message:
 ```js
-addToast(new ChappyToast(ToastTypeEnum.success, 'succeed!'));
+addToast(new Toast(ToastTypeEnum.success, 'succeed!'));
 ```
-The ChappyToast will be sent to provider that will stack it. Provider automatically handle the stack by unstacking and showing toast in order of receipt.
+The Toast will be sent to provider that will stack it. Provider automatically handle the stack by unstacking and showing toast in order of receipt.
 
 # Exemples
 
@@ -81,14 +81,14 @@ export default function App() {
 Fully exemple of a component named 'Home' using Toast:
 ```js
 import { useEffect, useContext } from 'react';
-import { ChappyToast, ToastContext, ToastTypeEnum } from 'rn-toaster-skack';
+import { Toast, ToastContext, ToastTypeEnum } from 'rn-toaster-skack';
 
 export default function Home(props) {
 
     const addToast = useContext(ToastContext);
 
     useEffect(() => {
-        addToast(new ChappyToast(ToastTypeEnum.info, 'Welcome!'));
+        addToast(new Toast(ToastTypeEnum.info, 'Welcome!'));
     }, []);
 
     return (
@@ -110,7 +110,7 @@ ToastTypeEnum = {
 }
 ```
 
-ChappyToast:
+Toast:
 ```js
 /**
  * @param {string} type the type of toast, if null set to 'info'.
@@ -122,7 +122,7 @@ constructor(type, message){
 ```
 it is advisable to use ToastTypeEnum properties for the first parameter 'type' as bellow :
 ```js
-new ChappyToast(ToastTypeEnum.info, 'my info message')
+new Toast(ToastTypeEnum.info, 'my info message')
 ```
 Default template will apply a special style color to the toast, depending of type value:
 info: #3BCBEB
@@ -158,7 +158,15 @@ setToastTemplate:
 /**
  * @param {React element} template : the template used for toast
  */
-setToastTemplate(template) {...}
+const template: React.FC<{type: ToastTypeEnum, message: string, translateValue: number}> = (props) => {
+    return <Animated.View style={[ToastStyle.toastWrapper, {transform: [{ translateY: props.translateValue }]} ]}>
+        <View style={ToastStyle.toast}>
+            <Text style={ToastStyle.toastMessage}>{props.message}</Text>
+        </View>
+    </Animated.View>
+};
+
+setToastTemplate(template);
 ```
 
 setFallback:
@@ -167,6 +175,14 @@ setFallback:
  * @param {function} fallBack : function called when max amout of toast that could be staked is reached
  */
 setFallback(fallBack) {...}
+```
+
+setZIndex:
+```js
+/**
+ * @param {number} value : the new value of Toasts zIndex
+ */
+setZIndex(value) {...}
 ```
 
 svg

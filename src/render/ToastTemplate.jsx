@@ -24,7 +24,7 @@ const ToastTemplateSvg = (props) => {
   }
 
   return(
-    <Animated.View style={[ToastStyle.toastcontainer, {transform: [{ translateY: props.translateValue }]} ]}>
+    <Animated.View style={[ToastStyle.toastcontainer, { zIndex: props.zIndex, transform: [{ translateY: props.translateValue }]} ]}>
       <View style={[ToastStyle.toast, getStyle(props.type)]}>
 
         {getSVG(props.type)}
@@ -43,7 +43,7 @@ const ToastTemplateSvg = (props) => {
 
 const ToastTemplateBase = (props) => {
   return(
-    <Animated.View style={[ToastStyle.toastcontainer, {transform: [{ translateY: props.translateValue }]} ]}>
+    <Animated.View style={[ToastStyle.toastcontainer, { zIndex: props.zIndex, transform: [{ translateY: props.translateValue }]} ]}>
       <View style={[ToastStyle.toast, getStyle(props.type)]}>
 
         <Text style={ToastStyle.toastMessage}>{props.message}</Text>
